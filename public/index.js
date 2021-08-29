@@ -1,21 +1,26 @@
+
 const startBtn = document.querySelector(".start");
+
+
 const luckyObj = {}
 const tipsBox = document.querySelector(".tips_container");
 const messageBox = document.querySelector(".tips_container-message");
 const correctBtn = document.querySelector('.tips_container-correct')
 class LuckyBox{
-    constructor(targetIndex=3){
+    constructor(){
         this.contanier = document.getElementById("lucky_contanier");
         this.arr = this.contanier.querySelectorAll('.lucky_item-selected,.lucky_item');
         this.timer = null;
         this.nums = 0;
+        this.targetIndex=''
         this.delay =200;
         this.flag = false;
-        this.targetIndex = targetIndex;
         this.isfanlly = false;
+        this.textArr = []
         //对格子进行重新排序，没有排序的盒子显示不符预期。
         this.items = Array.from(this.arr).sort((a,b)=>a.attributes["data-index"].value-b.attributes["data-index"].value)
-   
+       
+        console.log(this.arr[0]);
     }
     start(){
         this.timer = setInterval(()=>{
@@ -39,6 +44,26 @@ class LuckyBox{
         const selectItem = this.getSelectedItem();
         const index = Array.from(this.items).indexOf(selectItem)
         return index
+    }
+    getUpdateData(){
+        let newText = []
+        myAjax({
+            url:'http://localhost:3000/getData',
+            success:res =>{
+                JSON.parse(res).forEach(item=>{
+                    newText.push(item.value)
+                })
+                this.items.forEach((element,index)=>{
+                    let text = element.querySelector("span");
+                    text.innerHTML=newText[index]
+                    console.log(text.innerHTML);
+                })
+            }
+        })
+       
+    }
+    setTargetIndex(index){
+        this.targetIndex=index
     }
     nextItem(){
         let index = this.getSelectedIndex();
@@ -79,26 +104,38 @@ class LuckyBox{
             const event = new CustomEvent("success",{bubbles:true,detail:{value:this.items[index]}});
             startBtn.dispatchEvent(event)
             this.stop()
+            this.nums =0;
+            this.delay=200;
+            this.flag=false;
+            this.isfanlly==false
         }
        
     }
 }
-
+const luckybox = new LuckyBox()
+luckybox.getUpdateData()
 startBtn.addEventListener('click',()=>{
-    startBtn.innerHTML='抽奖中'
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET','http://localhost:3000/index');
-    xhr.send();
-    xhr.onreadystatechange = function(){
-        if(xhr.status>=200&&xhr.status<300&&xhr.readyState==4){
-            Object.assign(luckyObj,JSON.parse(xhr.responseText))
-            console.log(luckyObj);
-            const luckybox = new LuckyBox(luckyObj.index);
-            luckybox.start()
-
-        }
-        if(xhr.status>400) error(xhr.responseText)
+    const chanceTimes = document.querySelector(".nums")
+    if(parseInt(chanceTimes.innerHTML)<20) {
+        alert('你的钻石不够~请攒够钻石再来~')
+        return
     }
+    else{
+        myAjax({
+            url:"http://localhost:3000/index",
+            success:res=>{
+             chanceTimes.innerHTML=chanceTimes.innerHTML-20
+             localStorage.setItem('money',parseInt( chanceTimes.innerHTML))
+             Object.assign(luckyObj,JSON.parse(res))
+             console.log(luckyObj);
+             console.log();
+             luckybox.setTargetIndex(luckyObj.index)
+             luckybox.start()
+             
+            }
+        })
+    }
+   
    
 })
 startBtn.addEventListener("success",(e)=>{

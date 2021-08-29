@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../myajax.js"></script>
+
+    <style>
+        .box li {
+            margin: 10px 0;
+        }
+
+        input {
+            display: block;
+            width: 300px;
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="current_data"></div>
+    <h1>修改后的数据</h1>
+    <div class="update_data">
+
+    </div>
+    
+    <div class="aa">
+        <input class="ipt" type="number" name="index" placeholder="输入你要更改奖品名的下标">
+        <input class="ipt" type="text" name="value" placeholder="输入你要更换的奖品（暂不支持上传图片）">
+        <input class="ipt" type="number" name="chance" placeholder="输入你要更改奖品的中奖率（小数:例如0.7）">
+    </div>
+    <div class="update">上传修改</div>
+    <h2 class="administer_tips"></h2>
+    <script src="./init.js"></script>
+    <script src="./administer.js"></script>
+</body>
+
+</html>
