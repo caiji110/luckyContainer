@@ -18,6 +18,9 @@
             width: 300px;
             margin: 10px;
         }
+        .SetMustBtn,.update{
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -33,8 +36,12 @@
         <input class="ipt" type="text" name="value" placeholder="输入你要更换的奖品（暂不支持上传图片）">
         <input class="ipt" type="number" name="chance" placeholder="输入你要更改奖品的中奖率（小数:例如0.7）">
     </div>
-    <div class="update">上传修改</div>
+    <div class="update">上传修改奖池数据</div>
     <h2 class="administer_tips"></h2>
+    <H2>设置必中（当用户抽奖多少次后，可设置下一次必中哪个奖品）</H2>
+    <input type="text" class="must_get" name="index"  placeholder="必中奖品的下标">
+    <input type="text" class="must_get" name="nums"  placeholder="必中奖品的前提（抽了多少次）">
+    <div class="SetMustBtn">设置必中</div>
     <script src="./init.js"></script>
     <script src="./administer.js"></script>
 </body>

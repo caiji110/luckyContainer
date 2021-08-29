@@ -124,6 +124,7 @@ startBtn.addEventListener('click',()=>{
         myAjax({
             url:"http://localhost:3000/index",
             success:res=>{
+                console.log(res);
              chanceTimes.innerHTML=chanceTimes.innerHTML-20
              localStorage.setItem('money',parseInt( chanceTimes.innerHTML))
              Object.assign(luckyObj,JSON.parse(res))
