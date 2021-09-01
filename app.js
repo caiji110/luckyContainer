@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const path = require("path");
 const {getPrize} = require("./tools/getPrize");
-
+// const fs = require('fs')
 let numsMust = -1;
 let currentNums=0;
 let indexMust = -1;
@@ -38,11 +38,15 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 app.get('/login',(req,res)=>{
-    console.log(111);
+    // fs.appendFile('message.txt', 'data to append', 'utf8', (err)=>{
+    //     if(err) throw err;
+    //     console.log('success');
+    // });
+    // console.log(111);
     res.send('初次登录')
 })
 app.get('/index',(req,res)=>{
-    
+    console.log(111);
     if(numsMust!=-1)  currentNums=currentNums+1
     if(currentNums>=numsMust&&numsMust!=-1){
         console.log(11);

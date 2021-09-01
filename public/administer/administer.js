@@ -7,7 +7,6 @@ const newObj = {} //存放更新的奖池项目
 const mustGetItem ={} //存放必中的项目下标和次数
 console.log(ipt);
 updateBtn.addEventListener('click',async()=>{
-    //console.log(newObj);
     renderData('.update_data','/updateData',newObj,'post');
 })
 MustBtn.addEventListener("click",()=>{

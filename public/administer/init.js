@@ -1,3 +1,8 @@
+/**
+ * classname:要存放渲染出来数据的类名。
+ * url：拿到渲染数据
+ * dataObj:post请求时传递的数据
+ */
 function renderData(classname='.current_data',url='/getData',dataObj={},type='get'){
     const currentData = document.querySelector(classname)
     let newData = []
